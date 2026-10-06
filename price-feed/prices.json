@@ -1,0 +1,710 @@
+{
+  "schema": 1,
+  "game": "datacenter-sim",
+  "generatedAt": "2026-10-05T16:22:15.502Z",
+  "currency": "USD",
+  "providers": {
+    "bestbuy": "off",
+    "ebay": "off"
+  },
+  "count": 116,
+  "live": 0,
+  "prices": {
+    "lap_aspire3": {
+      "price": 449,
+      "base": 449,
+      "src": "baseline",
+      "n": 0
+    },
+    "lap_ideapad5": {
+      "price": 749,
+      "base": 749,
+      "src": "baseline",
+      "n": 0
+    },
+    "lap_mba_m4": {
+      "price": 999,
+      "base": 999,
+      "src": "baseline",
+      "n": 0
+    },
+    "lap_tuf_a16": {
+      "price": 1499,
+      "base": 1499,
+      "src": "baseline",
+      "n": 0
+    },
+    "lap_legion7i": {
+      "price": 3299,
+      "base": 3299,
+      "src": "baseline",
+      "n": 0
+    },
+    "lap_mbp16_max": {
+      "price": 3999,
+      "base": 3999,
+      "src": "baseline",
+      "n": 0
+    },
+    "lap_blade16": {
+      "price": 4499,
+      "base": 4499,
+      "src": "baseline",
+      "n": 0
+    },
+    "mini_ser8": {
+      "price": 599,
+      "base": 599,
+      "src": "baseline",
+      "n": 0
+    },
+    "mini_macmini": {
+      "price": 599,
+      "base": 599,
+      "src": "baseline",
+      "n": 0
+    },
+    "nas_ds923_unit": {
+      "price": 599,
+      "base": 599,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_r5_7600": {
+      "price": 185,
+      "base": 185,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_r5_9600x": {
+      "price": 174,
+      "base": 174,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_r7_7700x": {
+      "price": 217,
+      "base": 217,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_r7_9700x": {
+      "price": 339,
+      "base": 339,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_r7_9800x3d": {
+      "price": 444,
+      "base": 444,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_r9_9900x": {
+      "price": 332,
+      "base": 332,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_r9_9950x": {
+      "price": 549,
+      "base": 549,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_tr_9970x": {
+      "price": 2499,
+      "base": 2499,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_i5_14400": {
+      "price": 209,
+      "base": 209,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_i5_14600k": {
+      "price": 239,
+      "base": 239,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_i7_14700k": {
+      "price": 379,
+      "base": 379,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_i9_14900k": {
+      "price": 469,
+      "base": 469,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_u5_245k": {
+      "price": 179,
+      "base": 179,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_u7_265k": {
+      "price": 299,
+      "base": 299,
+      "src": "baseline",
+      "n": 0
+    },
+    "cpu_u9_285k": {
+      "price": 519,
+      "base": 519,
+      "src": "baseline",
+      "n": 0
+    },
+    "cool_air": {
+      "price": 39,
+      "base": 39,
+      "src": "baseline",
+      "n": 0
+    },
+    "cool_aio240": {
+      "price": 85,
+      "base": 85,
+      "src": "baseline",
+      "n": 0
+    },
+    "cool_aio360": {
+      "price": 110,
+      "base": 110,
+      "src": "baseline",
+      "n": 0
+    },
+    "cool_tr": {
+      "price": 159,
+      "base": 159,
+      "src": "baseline",
+      "n": 0
+    },
+    "mb_a620m": {
+      "price": 99,
+      "base": 99,
+      "src": "baseline",
+      "n": 0
+    },
+    "mb_b650": {
+      "price": 169,
+      "base": 169,
+      "src": "baseline",
+      "n": 0
+    },
+    "mb_x870e": {
+      "price": 349,
+      "base": 349,
+      "src": "baseline",
+      "n": 0
+    },
+    "mb_b760m_ddr4": {
+      "price": 119,
+      "base": 119,
+      "src": "baseline",
+      "n": 0
+    },
+    "mb_z790": {
+      "price": 229,
+      "base": 229,
+      "src": "baseline",
+      "n": 0
+    },
+    "mb_b860": {
+      "price": 169,
+      "base": 169,
+      "src": "baseline",
+      "n": 0
+    },
+    "mb_z890": {
+      "price": 299,
+      "base": 299,
+      "src": "baseline",
+      "n": 0
+    },
+    "mb_trx50": {
+      "price": 799,
+      "base": 799,
+      "src": "baseline",
+      "n": 0
+    },
+    "ram_ddr4_16": {
+      "price": 109,
+      "base": 109,
+      "src": "baseline",
+      "n": 0
+    },
+    "ram_ddr4_32": {
+      "price": 179,
+      "base": 179,
+      "src": "baseline",
+      "n": 0
+    },
+    "ram_ddr5_16": {
+      "price": 225,
+      "base": 225,
+      "src": "baseline",
+      "n": 0
+    },
+    "ram_ddr5_32": {
+      "price": 420,
+      "base": 420,
+      "src": "baseline",
+      "n": 0
+    },
+    "ram_ddr5_64": {
+      "price": 640,
+      "base": 640,
+      "src": "baseline",
+      "n": 0
+    },
+    "ram_ddr5_96": {
+      "price": 949,
+      "base": 949,
+      "src": "baseline",
+      "n": 0
+    },
+    "ram_rdimm_128": {
+      "price": 1899,
+      "base": 1899,
+      "src": "baseline",
+      "n": 0
+    },
+    "ssd_1tb": {
+      "price": 159,
+      "base": 159,
+      "src": "baseline",
+      "n": 0
+    },
+    "ssd_2tb": {
+      "price": 329,
+      "base": 329,
+      "src": "baseline",
+      "n": 0
+    },
+    "ssd_4tb": {
+      "price": 759,
+      "base": 759,
+      "src": "baseline",
+      "n": 0
+    },
+    "hdd_4tb": {
+      "price": 119,
+      "base": 119,
+      "src": "baseline",
+      "n": 0
+    },
+    "hdd_12tb": {
+      "price": 299,
+      "base": 299,
+      "src": "baseline",
+      "n": 0
+    },
+    "hdd_20tb": {
+      "price": 469,
+      "base": 469,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_arc_b580": {
+      "price": 289,
+      "base": 289,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_5050": {
+      "price": 315,
+      "base": 315,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_5060": {
+      "price": 470,
+      "base": 470,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_5060ti16": {
+      "price": 805,
+      "base": 805,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_5070": {
+      "price": 900,
+      "base": 900,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_5070ti": {
+      "price": 1100,
+      "base": 1100,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_5080": {
+      "price": 1500,
+      "base": 1500,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_5090": {
+      "price": 4700,
+      "base": 4700,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_9060xt16": {
+      "price": 470,
+      "base": 470,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_9070": {
+      "price": 650,
+      "base": 650,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_9070xt": {
+      "price": 720,
+      "base": 720,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_rtxpro6000": {
+      "price": 8999,
+      "base": 8999,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_l40s_card": {
+      "price": 8500,
+      "base": 8500,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_h100_card": {
+      "price": 28000,
+      "base": 28000,
+      "src": "baseline",
+      "n": 0
+    },
+    "gpu_b200_card": {
+      "price": 40000,
+      "base": 40000,
+      "src": "baseline",
+      "n": 0
+    },
+    "psu_550b": {
+      "price": 65,
+      "base": 65,
+      "src": "baseline",
+      "n": 0
+    },
+    "psu_750g": {
+      "price": 105,
+      "base": 105,
+      "src": "baseline",
+      "n": 0
+    },
+    "psu_1000g": {
+      "price": 165,
+      "base": 165,
+      "src": "baseline",
+      "n": 0
+    },
+    "psu_1300p": {
+      "price": 279,
+      "base": 279,
+      "src": "baseline",
+      "n": 0
+    },
+    "psu_1600t": {
+      "price": 499,
+      "base": 499,
+      "src": "baseline",
+      "n": 0
+    },
+    "case_matx": {
+      "price": 69,
+      "base": 69,
+      "src": "baseline",
+      "n": 0
+    },
+    "case_mid": {
+      "price": 99,
+      "base": 99,
+      "src": "baseline",
+      "n": 0
+    },
+    "case_full": {
+      "price": 189,
+      "base": 189,
+      "src": "baseline",
+      "n": 0
+    },
+    "desk": {
+      "price": 159,
+      "base": 159,
+      "src": "baseline",
+      "n": 0
+    },
+    "shelf": {
+      "price": 89,
+      "base": 89,
+      "src": "baseline",
+      "n": 0
+    },
+    "net_sw8": {
+      "price": 25,
+      "base": 25,
+      "src": "baseline",
+      "n": 0
+    },
+    "net_sw8_25g": {
+      "price": 119,
+      "base": 119,
+      "src": "baseline",
+      "n": 0
+    },
+    "net_usw24": {
+      "price": 399,
+      "base": 399,
+      "src": "baseline",
+      "n": 0
+    },
+    "net_crs317": {
+      "price": 499,
+      "base": 499,
+      "src": "baseline",
+      "n": 0
+    },
+    "net_sn2410": {
+      "price": 6500,
+      "base": 6500,
+      "src": "baseline",
+      "n": 0
+    },
+    "net_7060cx": {
+      "price": 9800,
+      "base": 9800,
+      "src": "baseline",
+      "n": 0
+    },
+    "ups_desk": {
+      "price": 239,
+      "base": 239,
+      "src": "baseline",
+      "n": 0
+    },
+    "ups_rack": {
+      "price": 2399,
+      "base": 2399,
+      "src": "baseline",
+      "n": 0
+    },
+    "pdu_12": {
+      "price": 1799,
+      "base": 1799,
+      "src": "baseline",
+      "n": 0
+    },
+    "pdu_hd": {
+      "price": 6499,
+      "base": 6499,
+      "src": "baseline",
+      "n": 0
+    },
+    "cool_boxfan": {
+      "price": 39,
+      "base": 39,
+      "src": "baseline",
+      "n": 0
+    },
+    "cool_window": {
+      "price": 329,
+      "base": 329,
+      "src": "baseline",
+      "n": 0
+    },
+    "cool_portable": {
+      "price": 549,
+      "base": 549,
+      "src": "baseline",
+      "n": 0
+    },
+    "cool_minisplit": {
+      "price": 2399,
+      "base": 2399,
+      "src": "baseline",
+      "n": 0
+    },
+    "cool_inrow": {
+      "price": 17999,
+      "base": 17999,
+      "src": "baseline",
+      "n": 0
+    },
+    "cool_crac": {
+      "price": 37999,
+      "base": 37999,
+      "src": "baseline",
+      "n": 0
+    },
+    "rack_42u": {
+      "price": 1199,
+      "base": 1199,
+      "src": "baseline",
+      "n": 0
+    },
+    "srv_r640": {
+      "price": 952,
+      "base": 952,
+      "src": "baseline",
+      "n": 0
+    },
+    "srv_r730": {
+      "price": 650,
+      "base": 650,
+      "src": "baseline",
+      "n": 0
+    },
+    "srv_dl380g10": {
+      "price": 2534,
+      "base": 2534,
+      "src": "baseline",
+      "n": 0
+    },
+    "srv_r760_refurb": {
+      "price": 5900,
+      "base": 5900,
+      "src": "baseline",
+      "n": 0
+    },
+    "srv_r660": {
+      "price": 21360,
+      "base": 21360,
+      "src": "baseline",
+      "n": 0
+    },
+    "srv_r760xs": {
+      "price": 15957,
+      "base": 15957,
+      "src": "baseline",
+      "n": 0
+    },
+    "srv_r7625": {
+      "price": 27999,
+      "base": 27999,
+      "src": "baseline",
+      "n": 0
+    },
+    "chassis_storage4u": {
+      "price": 10000,
+      "base": 10000,
+      "src": "baseline",
+      "n": 0
+    },
+    "chassis_gpu4u": {
+      "price": 12000,
+      "base": 12000,
+      "src": "baseline",
+      "n": 0
+    },
+    "chassis_hgx": {
+      "price": 60000,
+      "base": 60000,
+      "src": "baseline",
+      "n": 0
+    },
+    "chassis_dgx": {
+      "price": 195000,
+      "base": 195000,
+      "src": "baseline",
+      "n": 0
+    },
+    "air_can": {
+      "price": 9,
+      "base": 9,
+      "src": "baseline",
+      "n": 0
+    },
+    "duster_electric": {
+      "price": 59,
+      "base": 59,
+      "src": "baseline",
+      "n": 0
+    },
+    "nas_ds923": {
+      "price": 1800,
+      "base": 1795,
+      "src": "parts",
+      "n": 0
+    },
+    "pre_office": {
+      "price": 818,
+      "base": 849,
+      "src": "parts",
+      "n": 0
+    },
+    "pre_homeserver": {
+      "price": 2400,
+      "base": 2399,
+      "src": "parts",
+      "n": 0
+    },
+    "pre_gaming": {
+      "price": 3080,
+      "base": 2799,
+      "src": "parts",
+      "n": 0
+    },
+    "pre_aiws": {
+      "price": 14300,
+      "base": 13499,
+      "src": "parts",
+      "n": 0
+    },
+    "pre_threadripper": {
+      "price": 17500,
+      "base": 17499,
+      "src": "parts",
+      "n": 0
+    },
+    "srv_storage": {
+      "price": 21300,
+      "base": 21999,
+      "src": "parts",
+      "n": 0
+    },
+    "srv_gpu_l40s": {
+      "price": 46000,
+      "base": 46000,
+      "src": "parts",
+      "n": 0
+    },
+    "srv_gpu_h100": {
+      "price": 284000,
+      "base": 284000,
+      "src": "parts",
+      "n": 0
+    },
+    "srv_gpu_b200": {
+      "price": 515000,
+      "base": 515000,
+      "src": "parts",
+      "n": 0
+    },
+    "air_pack10": {
+      "price": 69,
+      "base": 69,
+      "src": "parts",
+      "n": 0
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "datacenter-price-feed",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Real-world hardware prices (GPUs, CPUs, laptops, servers...) for the Datacenter Sim Roblox game",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "prices": "node fetch-prices.js",
+    "prices:offline": "node fetch-prices.js --offline",
+    "serve": "node server.js",
+    "catalog": "node gen-catalog.js"
+  }
+}
