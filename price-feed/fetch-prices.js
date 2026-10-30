@@ -69,6 +69,7 @@ async function httpJson(url, options = {}, retries = 2) {
       if (res.status === 429 || res.status >= 500) throw new Error(`HTTP ${res.status}`);
       if (!res.ok) {
         const err = new Error(`HTTP ${res.status}: ${text.slice(0, 200)}`);
+        err.status = res.status;
         err.fatal = true;
         throw err;
       }
@@ -198,8 +199,6 @@ const EBAY_CONDITIONS = {
 };
 
 async function ebayPrice(item, log) {
-  const token = await ebayAuth();
-  if (!token) return null;
   const feed = item.feed;
   const mult = feed.multiply || 1;
   const min = Math.max(1, Math.floor((feed.min ?? 1) / mult));
@@ -209,12 +208,26 @@ async function ebayPrice(item, log) {
   if (cond) filter += `,conditionIds:{${cond}}`;
   const url = 'https://api.ebay.com/buy/browse/v1/item_summary/search'
     + `?q=${encodeURIComponent(feed.q)}&limit=100&filter=${encodeURIComponent(filter)}`;
-  const data = await httpJson(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'X-EBAY-C-MARKETPLACE-ID': process.env.EBAY_MARKETPLACE || 'EBAY_US',
-    },
-  });
+  let data;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const token = await ebayAuth();
+    if (!token) return null;
+    try {
+      data = await httpJson(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'X-EBAY-C-MARKETPLACE-ID': process.env.EBAY_MARKETPLACE || 'EBAY_US',
+        },
+      });
+      break;
+    } catch (e) {
+      if (e.status !== 401) throw e;
+      // A token can be rejected before its advertised expiry. Renew only once.
+      ebayToken = null;
+      ebayTokenExpires = 0;
+      if (attempt === 1) throw e;
+    }
+  }
   const ok = inRange(feed);
   const prices = (data.itemSummaries || [])
     .filter((it) => it.price && it.price.currency === 'USD' && titleMatches(it.title, feed))
@@ -270,7 +283,13 @@ async function buildPrices(opts = {}) {
   };
   const errors = { bestbuy: 0, ebay: 0 };
   const prices = {};
-  let live = 0;
+  // Retain untouched component prices before deriving bundles during a partial run.
+  if (opts.only) {
+    for (const [id, rec] of Object.entries(previous.prices || {})) {
+      const item = byId[id];
+      if (!opts.only.has(id) && !(item && (item.bundle || item.parts))) prices[id] = rec;
+    }
+  }
 
   // 1) items with their own search
   for (const item of items) {
@@ -305,40 +324,49 @@ async function buildPrices(opts = {}) {
       let p = median(estimates);
       p = Math.min(Math.max(p, item.price / 3), item.price * 3); // sanity: never wilder than 3x
       prices[item.id] = { price: niceRound(p), base: item.price, src: sources.join('+'), n: samples };
-      live++;
       log(`  -> $${prices[item.id].price} (baseline $${item.price})`);
     }
   }
 
-  // 2) everything else: baseline, then bundles/prebuilts from their parts
-  const priceOf = (id) => {
-    if (prices[id]) return prices[id].price;
-    const it = byId[id];
-    return it ? it.price : null;
-  };
+  // 2) Apply overrides before deriving bundles so component overrides propagate.
+  for (const [id, v] of Object.entries(overrides)) {
+    const p = typeof v === 'number' ? v : v && v.price;
+    if (byId[id] && Number.isFinite(p) && p > 0) prices[id] = { price: p, base: byId[id].price, src: 'override', n: 0 };
+  }
+
+  // 3) everything else: baseline, then bundles/prebuilts from their parts
   for (const item of items) {
     if (item.builtin || prices[item.id]) continue;
     if (opts.only && !opts.only.has(item.id) && !(item.bundle || item.parts)) continue;
     if (item.bundle || item.parts) continue; // second pass
     prices[item.id] = { price: item.price, base: item.price, src: 'baseline', n: 0 };
   }
-  for (const item of items) {
-    if (item.builtin || !(item.bundle || item.parts)) continue;
+  const resolving = new Set();
+  const priceOf = (id) => {
+    if (prices[id]) return prices[id].price;
+    const item = byId[id];
+    if (!item) return null;
+    if (item.builtin || !(item.bundle || item.parts)) return item.price;
+    if (resolving.has(id)) throw new Error(`Bundle dependency cycle at ${id}`);
+    resolving.add(id);
     const p = derivedPrice(item, priceOf);
-    prices[item.id] = { price: niceRound(p ?? item.price), base: item.price, src: p == null ? 'baseline' : 'parts', n: 0 };
-  }
-
-  // 3) manual overrides win
-  for (const [id, v] of Object.entries(overrides)) {
-    const p = typeof v === 'number' ? v : v && v.price;
-    if (byId[id] && Number.isFinite(p) && p > 0) prices[id] = { price: p, base: byId[id].price, src: 'override', n: 0 };
+    resolving.delete(id);
+    prices[id] = { price: niceRound(p ?? item.price), base: item.price, src: p == null ? 'baseline' : 'parts', n: 0 };
+    return prices[id].price;
+  };
+  for (const item of items) {
+    if (!item.builtin && (item.bundle || item.parts)) priceOf(item.id);
   }
 
   // 4) remember the previous price so the game can show trends
   for (const [id, rec] of Object.entries(prices)) {
     const old = previous.prices && previous.prices[id];
+    if (rec === old) continue; // Preserve trend history for untouched partial-run records.
     if (old && Number.isFinite(old.price)) rec.prev = old.price;
   }
+
+  const live = Object.values(prices).filter((rec) =>
+    String(rec.src).split('+').some((source) => source === 'bestbuy' || source === 'ebay')).length;
 
   return {
     schema: 1,
@@ -359,12 +387,6 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const started = Date.now();
   const result = await buildPrices(args);
-  if (args.only) {
-    // partial run: merge into the existing file instead of replacing it
-    const existing = readJson(args.out, { prices: {} });
-    result.prices = { ...existing.prices, ...result.prices };
-    result.count = Object.keys(result.prices).length;
-  }
   fs.writeFileSync(args.out, JSON.stringify(result, null, 2) + '\n');
   const secs = ((Date.now() - started) / 1000).toFixed(1);
   console.log(`prices.json: ${result.count} items, ${result.live} live prices `

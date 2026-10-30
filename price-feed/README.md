@@ -40,6 +40,12 @@ node price-feed/fetch-prices.js --only gpu_5090,cpu_r9_9950x --verbose
 
 On Windows PowerShell, set the key first with `$env:BESTBUY_API_KEY="xxx"`.
 
+Partial runs (`--only`) retain untouched price records and their trend history, then recompute bundles using the retained and updated component prices. The `live` count describes provider-sourced records in the resulting file, including retained records.
+
+Run the regression tests with `npm --prefix price-feed test` (use `npm.cmd` in PowerShell if script execution is restricted). The tests use temporary files and simulated provider responses; no API credentials or network access are needed.
+
+eBay access tokens are cached in memory and renewed before expiry. If a search returns HTTP 401, the collector discards the token, obtains a new one and retries that search once. Other authorization errors still fall back through the normal per-item error handling.
+
 ## Host it as a service (optional)
 
 On Render, Railway, Fly.io or a VPS:
@@ -48,6 +54,8 @@ On Render, Railway, Fly.io or a VPS:
 - Env vars: the API keys above, plus `REFRESH_HOURS` (default 12).
 - The game URL is then `https://<your-service>/prices.json`.
 
+A refresh is published in memory after its disk write succeeds. Write failures are logged and the service continues serving its previous in-memory feed.
+
 ## How a price is picked
 
 1. **Search:** both stores are searched. Only listings whose title has every `must` word and none of the `not` words are kept, and only if the price is inside `min`–`max`. This drops cases, cables, laptops when looking for a GPU, and so on.
@@ -55,6 +63,8 @@ On Render, Railway, Fly.io or a VPS:
 3. **Combine:** if both stores answered, their two prices are averaged. The result is capped at 3x up or down from the baseline.
 4. **Bundles:** prebuilt PCs, the NAS and GPU servers are priced from their parts, plus a small markup for prebuilts.
 5. **Game safety:** the game also clamps every price to between 0.5x and 2.5x the baseline. If the file is older than 14 days, it falls back to the baseline.
+
+Manual overrides take precedence, including when a component is used in a bundle. Nested bundles are resolved by dependency, so catalog order does not affect their price; cyclic bundle references fail the refresh with an error.
 
 ## Add or change hardware
 

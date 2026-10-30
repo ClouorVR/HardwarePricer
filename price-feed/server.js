@@ -38,9 +38,9 @@ async function refresh() {
   refreshing = true;
   try {
     const result = await buildPrices({ out: FILE });
+    await fs.promises.writeFile(FILE, JSON.stringify(result, null, 2) + '\n');
     body = JSON.stringify(result);
     lastRefresh = result.generatedAt;
-    fs.writeFile(FILE, JSON.stringify(result, null, 2) + '\n', () => {});
     console.log(`[prices] refreshed: ${result.count} items, ${result.live} live`);
   } catch (e) {
     console.error('[prices] refresh failed, keeping old prices:', e.message);

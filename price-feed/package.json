@@ -8,6 +8,7 @@
     "node": ">=18"
   },
   "scripts": {
+    "test": "node --test",
     "prices": "node fetch-prices.js",
     "prices:offline": "node fetch-prices.js --offline",
     "serve": "node server.js",

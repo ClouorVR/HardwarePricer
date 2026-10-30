@@ -23,6 +23,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: Test price feed
+        run: npm --prefix price-feed test
+
       - name: Fetch prices
         run: node price-feed/fetch-prices.js
         env:
