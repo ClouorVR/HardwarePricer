@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "game": "datacenter-sim",
-  "generatedAt": "2026-10-31T10:25:47.719Z",
+  "generatedAt": "2026-10-31T10:56:48.340Z",
   "currency": "USD",
   "providers": {
     "bestbuy": "off",
@@ -15,602 +15,602 @@
       "base": 449,
       "src": "ebay",
       "n": 12,
-      "prev": 449
+      "prev": 624
     },
     "lap_ideapad5": {
       "price": 681,
       "base": 749,
       "src": "ebay",
       "n": 47,
-      "prev": 749
+      "prev": 681
     },
     "lap_mba_m4": {
       "price": 1100,
       "base": 999,
       "src": "ebay",
       "n": 27,
-      "prev": 999
+      "prev": 1100
     },
     "lap_tuf_a16": {
       "price": 2150,
       "base": 1499,
       "src": "ebay",
       "n": 4,
-      "prev": 1499
+      "prev": 2150
     },
     "lap_legion7i": {
       "price": 3740,
       "base": 3299,
       "src": "ebay",
       "n": 5,
-      "prev": 3299
+      "prev": 3740
     },
     "lap_mbp16_max": {
       "price": 3500,
       "base": 3999,
       "src": "ebay",
       "n": 16,
-      "prev": 3999
+      "prev": 3500
     },
     "mini_ser8": {
       "price": 692,
       "base": 599,
       "src": "ebay",
       "n": 2,
-      "prev": 599
+      "prev": 692
     },
     "mini_macmini": {
       "price": 757,
       "base": 599,
       "src": "ebay",
       "n": 31,
-      "prev": 599
+      "prev": 757
     },
     "cpu_r5_7600": {
       "price": 266,
       "base": 185,
       "src": "ebay",
       "n": 11,
-      "prev": 185
+      "prev": 266
     },
     "cpu_r5_9600x": {
       "price": 240,
       "base": 174,
       "src": "ebay",
       "n": 48,
-      "prev": 174
+      "prev": 240
     },
     "cpu_r7_7700x": {
       "price": 248,
       "base": 217,
       "src": "ebay",
       "n": 9,
-      "prev": 217
+      "prev": 248
     },
     "cpu_r7_9700x": {
       "price": 343,
       "base": 339,
       "src": "ebay",
       "n": 43,
-      "prev": 339
+      "prev": 343
     },
     "cpu_r7_9800x3d": {
       "price": 516,
       "base": 444,
       "src": "ebay",
       "n": 55,
-      "prev": 444
+      "prev": 516
     },
     "cpu_r9_9900x": {
       "price": 475,
       "base": 332,
       "src": "ebay",
       "n": 27,
-      "prev": 332
+      "prev": 475
     },
     "cpu_r9_9950x": {
       "price": 664,
       "base": 549,
       "src": "ebay",
       "n": 19,
-      "prev": 549
+      "prev": 664
     },
     "cpu_tr_9970x": {
       "price": 3260,
       "base": 2499,
       "src": "ebay",
       "n": 17,
-      "prev": 2499
+      "prev": 3260
     },
     "cpu_i5_14400": {
       "price": 249,
       "base": 209,
       "src": "ebay",
       "n": 33,
-      "prev": 209
+      "prev": 249
     },
     "cpu_i5_14600k": {
       "price": 311,
       "base": 239,
       "src": "ebay",
       "n": 34,
-      "prev": 239
+      "prev": 311
     },
     "cpu_i7_14700k": {
       "price": 470,
       "base": 379,
       "src": "ebay",
       "n": 32,
-      "prev": 379
+      "prev": 470
     },
     "cpu_i9_14900k": {
       "price": 578,
       "base": 469,
       "src": "ebay",
       "n": 49,
-      "prev": 469
+      "prev": 578
     },
     "cpu_u5_245k": {
       "price": 278,
       "base": 179,
       "src": "ebay",
-      "n": 32,
-      "prev": 179
+      "n": 33,
+      "prev": 278
     },
     "cpu_u7_265k": {
       "price": 278,
       "base": 299,
       "src": "ebay",
       "n": 40,
-      "prev": 299
+      "prev": 278
     },
     "cpu_u9_285k": {
       "price": 644,
       "base": 519,
       "src": "ebay",
       "n": 47,
-      "prev": 519
+      "prev": 644
     },
     "cool_air": {
       "price": 48,
       "base": 39,
       "src": "ebay",
       "n": 83,
-      "prev": 39
+      "prev": 48
     },
     "cool_aio240": {
       "price": 100,
       "base": 85,
       "src": "ebay",
       "n": 3,
-      "prev": 85
+      "prev": 100
     },
     "cool_aio360": {
       "price": 85,
       "base": 110,
       "src": "ebay",
       "n": 1,
-      "prev": 110
+      "prev": 85
     },
     "cool_tr": {
       "price": 195,
       "base": 159,
       "src": "ebay",
       "n": 25,
-      "prev": 159
+      "prev": 195
     },
     "mb_a620m": {
       "price": 144,
       "base": 99,
       "src": "ebay",
       "n": 66,
-      "prev": 99
+      "prev": 144
     },
     "mb_b650": {
-      "price": 140,
+      "price": 141,
       "base": 169,
       "src": "ebay",
-      "n": 37,
-      "prev": 169
+      "n": 43,
+      "prev": 140
     },
     "mb_x870e": {
-      "price": 352,
+      "price": 351,
       "base": 349,
       "src": "ebay",
       "n": 89,
-      "prev": 349
+      "prev": 352
     },
     "mb_b760m_ddr4": {
-      "price": 159,
+      "price": 158,
       "base": 119,
       "src": "ebay",
-      "n": 64,
-      "prev": 119
+      "n": 68,
+      "prev": 159
     },
     "mb_z790": {
       "price": 216,
       "base": 229,
       "src": "ebay",
       "n": 86,
-      "prev": 229
+      "prev": 216
     },
     "mb_b860": {
       "price": 186,
       "base": 169,
       "src": "ebay",
       "n": 42,
-      "prev": 169
+      "prev": 186
     },
     "mb_z890": {
-      "price": 301,
+      "price": 298,
       "base": 299,
       "src": "ebay",
       "n": 84,
-      "prev": 299
+      "prev": 301
     },
     "mb_trx50": {
       "price": 1020,
       "base": 799,
       "src": "ebay",
       "n": 22,
-      "prev": 799
+      "prev": 1020
     },
     "ram_ddr4_16": {
       "price": 135,
       "base": 109,
       "src": "ebay",
       "n": 72,
-      "prev": 109
+      "prev": 135
     },
     "ram_ddr4_32": {
-      "price": 241,
+      "price": 246,
       "base": 179,
       "src": "ebay",
-      "n": 70,
-      "prev": 179
+      "n": 69,
+      "prev": 241
     },
     "ram_ddr5_16": {
-      "price": 279,
+      "price": 284,
       "base": 225,
       "src": "ebay",
-      "n": 16,
-      "prev": 225
+      "n": 17,
+      "prev": 279
     },
     "ram_ddr5_32": {
       "price": 512,
       "base": 420,
       "src": "ebay",
       "n": 88,
-      "prev": 420
+      "prev": 512
     },
     "ram_ddr5_64": {
       "price": 1000,
       "base": 640,
       "src": "ebay",
       "n": 9,
-      "prev": 640
+      "prev": 1000
     },
     "ram_ddr5_96": {
       "price": 1300,
       "base": 949,
       "src": "ebay",
       "n": 2,
-      "prev": 949
+      "prev": 1300
     },
     "ssd_1tb": {
       "price": 172,
       "base": 159,
       "src": "ebay",
       "n": 13,
-      "prev": 159
+      "prev": 172
     },
     "ssd_2tb": {
       "price": 395,
       "base": 329,
       "src": "ebay",
       "n": 74,
-      "prev": 329
+      "prev": 395
     },
     "ssd_4tb": {
       "price": 720,
       "base": 759,
       "src": "ebay",
       "n": 3,
-      "prev": 759
+      "prev": 720
     },
     "hdd_4tb": {
       "price": 174,
       "base": 119,
       "src": "ebay",
       "n": 49,
-      "prev": 119
+      "prev": 174
     },
     "hdd_12tb": {
       "price": 450,
       "base": 299,
       "src": "ebay",
       "n": 1,
-      "prev": 299
+      "prev": 450
     },
     "hdd_20tb": {
       "price": 650,
       "base": 469,
       "src": "ebay",
       "n": 1,
-      "prev": 469
+      "prev": 650
     },
     "gpu_arc_b580": {
       "price": 450,
       "base": 289,
       "src": "ebay",
       "n": 5,
-      "prev": 289
+      "prev": 450
     },
     "gpu_5050": {
       "price": 399,
       "base": 315,
       "src": "ebay",
       "n": 15,
-      "prev": 315
+      "prev": 399
     },
     "gpu_5060": {
       "price": 580,
       "base": 470,
       "src": "ebay",
       "n": 68,
-      "prev": 470
+      "prev": 580
     },
     "gpu_5060ti16": {
       "price": 969,
       "base": 805,
       "src": "ebay",
       "n": 51,
-      "prev": 805
+      "prev": 969
     },
     "gpu_5070": {
       "price": 985,
       "base": 900,
       "src": "ebay",
       "n": 52,
-      "prev": 900
+      "prev": 985
     },
     "gpu_5070ti": {
       "price": 1490,
       "base": 1100,
       "src": "ebay",
       "n": 30,
-      "prev": 1100
+      "prev": 1490
     },
     "gpu_5080": {
       "price": 2180,
       "base": 1500,
       "src": "ebay",
       "n": 45,
-      "prev": 1500
+      "prev": 2180
     },
     "gpu_5090": {
-      "price": 7390,
+      "price": 7400,
       "base": 4700,
       "src": "ebay",
-      "n": 38,
-      "prev": 4700
+      "n": 39,
+      "prev": 7390
     },
     "gpu_9060xt16": {
       "price": 668,
       "base": 470,
       "src": "ebay",
       "n": 8,
-      "prev": 470
+      "prev": 668
     },
     "gpu_9070": {
       "price": 819,
       "base": 650,
       "src": "ebay",
       "n": 12,
-      "prev": 650
+      "prev": 819
     },
     "gpu_9070xt": {
       "price": 1000,
       "base": 720,
       "src": "ebay",
       "n": 16,
-      "prev": 720
+      "prev": 1000
     },
     "gpu_l40s_card": {
       "price": 11800,
       "base": 8500,
       "src": "ebay",
       "n": 27,
-      "prev": 8500
+      "prev": 11800
     },
     "gpu_h100_card": {
       "price": 43300,
       "base": 28000,
       "src": "ebay",
       "n": 4,
-      "prev": 28000
+      "prev": 43300
     },
     "psu_550b": {
       "price": 63,
       "base": 65,
       "src": "ebay",
       "n": 65,
-      "prev": 65
+      "prev": 63
     },
     "psu_750g": {
       "price": 93,
       "base": 105,
       "src": "ebay",
       "n": 87,
-      "prev": 105
+      "prev": 93
     },
     "psu_1000g": {
-      "price": 141,
+      "price": 140,
       "base": 165,
       "src": "ebay",
       "n": 79,
-      "prev": 165
+      "prev": 141
     },
     "psu_1300p": {
       "price": 265,
       "base": 279,
       "src": "ebay",
       "n": 17,
-      "prev": 279
+      "prev": 265
     },
     "psu_1600t": {
       "price": 546,
       "base": 499,
       "src": "ebay",
       "n": 12,
-      "prev": 499
+      "prev": 546
     },
     "case_matx": {
       "price": 64,
       "base": 69,
       "src": "ebay",
       "n": 57,
-      "prev": 69
+      "prev": 64
     },
     "case_mid": {
       "price": 96,
       "base": 99,
       "src": "ebay",
-      "n": 53,
-      "prev": 99
+      "n": 52,
+      "prev": 96
     },
     "case_full": {
       "price": 198,
       "base": 189,
       "src": "ebay",
       "n": 60,
-      "prev": 189
+      "prev": 198
     },
     "net_sw8": {
       "price": 19.99,
       "base": 25,
       "src": "ebay",
       "n": 73,
-      "prev": 25
+      "prev": 19.99
     },
     "net_sw8_25g": {
       "price": 86,
       "base": 119,
       "src": "ebay",
       "n": 3,
-      "prev": 119
+      "prev": 86
     },
     "net_usw24": {
       "price": 294,
       "base": 399,
       "src": "ebay",
       "n": 16,
-      "prev": 399
+      "prev": 294
     },
     "net_crs317": {
       "price": 486,
       "base": 499,
       "src": "ebay",
       "n": 15,
-      "prev": 499
+      "prev": 486
     },
     "net_sn2410": {
       "price": 2170,
       "base": 6500,
       "src": "ebay",
       "n": 24,
-      "prev": 6500
+      "prev": 2170
     },
     "net_7060cx": {
       "price": 3270,
       "base": 9800,
       "src": "ebay",
       "n": 23,
-      "prev": 9800
+      "prev": 3270
     },
     "ups_desk": {
       "price": 295,
       "base": 239,
       "src": "ebay",
       "n": 14,
-      "prev": 239
+      "prev": 295
     },
     "ups_rack": {
       "price": 1000,
       "base": 2399,
       "src": "ebay",
       "n": 6,
-      "prev": 2399
+      "prev": 1000
     },
     "cool_boxfan": {
       "price": 26,
       "base": 39,
       "src": "ebay",
       "n": 81,
-      "prev": 39
+      "prev": 26
     },
     "rack_42u": {
       "price": 1040,
       "base": 1199,
       "src": "ebay",
       "n": 41,
-      "prev": 1199
+      "prev": 1040
     },
     "srv_r640": {
-      "price": 594,
+      "price": 596,
       "base": 952,
       "src": "ebay",
-      "n": 60,
-      "prev": 952
+      "n": 59,
+      "prev": 594
     },
     "srv_r730": {
-      "price": 472,
+      "price": 455,
       "base": 650,
       "src": "ebay",
-      "n": 48,
-      "prev": 650
+      "n": 47,
+      "prev": 472
     },
     "srv_dl380g10": {
       "price": 1120,
       "base": 2534,
       "src": "ebay",
       "n": 88,
-      "prev": 2534
+      "prev": 1120
     },
     "srv_r760_refurb": {
       "price": 17700,
       "base": 5900,
       "src": "ebay",
       "n": 74,
-      "prev": 5900
+      "prev": 17700
     },
     "srv_r660": {
       "price": 9140,
       "base": 21360,
       "src": "ebay",
       "n": 15,
-      "prev": 21360
+      "prev": 9140
     },
     "srv_r760xs": {
       "price": 8460,
       "base": 15957,
       "src": "ebay",
       "n": 37,
-      "prev": 15957
+      "prev": 8460
     },
     "srv_r7625": {
       "price": 21000,
       "base": 27999,
       "src": "ebay",
       "n": 62,
-      "prev": 27999
+      "prev": 21000
     },
     "duster_electric": {
       "price": 40,
       "base": 59,
       "src": "ebay",
       "n": 90,
-      "prev": 59
+      "prev": 40
     },
     "lap_blade16": {
       "price": 4499,
@@ -750,63 +750,63 @@
       "base": 1795,
       "src": "parts",
       "n": 0,
-      "prev": 1800
+      "prev": 2400
     },
     "pre_office": {
-      "price": 943,
+      "price": 942,
       "base": 849,
       "src": "parts",
       "n": 0,
-      "prev": 818
+      "prev": 943
     },
     "pre_homeserver": {
-      "price": 3270,
+      "price": 3280,
       "base": 2399,
       "src": "parts",
       "n": 0,
-      "prev": 2400
+      "prev": 3270
     },
     "pre_gaming": {
       "price": 3740,
       "base": 2799,
       "src": "parts",
       "n": 0,
-      "prev": 3080
+      "prev": 3740
     },
     "pre_aiws": {
       "price": 20800,
       "base": 13499,
       "src": "parts",
       "n": 0,
-      "prev": 14300
+      "prev": 20800
     },
     "pre_threadripper": {
       "price": 18500,
       "base": 17499,
       "src": "parts",
       "n": 0,
-      "prev": 17500
+      "prev": 18500
     },
     "srv_storage": {
       "price": 25600,
       "base": 21999,
       "src": "parts",
       "n": 0,
-      "prev": 21300
+      "prev": 25600
     },
     "srv_gpu_l40s": {
       "price": 59200,
       "base": 46000,
       "src": "parts",
       "n": 0,
-      "prev": 46000
+      "prev": 59200
     },
     "srv_gpu_h100": {
       "price": 406400,
       "base": 284000,
       "src": "parts",
       "n": 0,
-      "prev": 284000
+      "prev": 406400
     },
     "srv_gpu_b200": {
       "price": 515000,
