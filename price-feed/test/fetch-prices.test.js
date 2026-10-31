@@ -137,7 +137,7 @@ test('eBay stops after one renewal if the replacement token is also rejected', a
   });
   const result = await buildPrices();
   assert.equal(result.prices.gpu.src, 'baseline');
-  assert.equal(result.providers.ebay, 'on (1 errors)');
+  assert.match(result.providers.ebay, /^on \(1 errors; first: HTTP 401/);
   assert.equal(grants, 2);
   assert.equal(searches, 2);
 });
@@ -153,4 +153,77 @@ test('eBay does not renew tokens for permission failures', async (t) => {
   });
   assert.equal((await buildPrices()).prices.gpu.src, 'baseline');
   assert.equal(grants, 1);
+});
+
+function multiFixture(t, fetchImpl, n = 3) {
+  const names = ['BESTBUY_API_KEY', 'EBAY_CLIENT_ID', 'EBAY_CLIENT_SECRET'];
+  const saved = Object.fromEntries(names.map((name) => [name, process.env[name]]));
+  delete process.env.BESTBUY_API_KEY;
+  process.env.EBAY_CLIENT_ID = 'test-client';
+  process.env.EBAY_CLIENT_SECRET = 'test-secret';
+  t.after(() => {
+    for (const name of names) {
+      if (saved[name] === undefined) delete process.env[name];
+      else process.env[name] = saved[name];
+    }
+  });
+  t.mock.method(globalThis, 'fetch', fetchImpl);
+  const items = [];
+  for (let i = 1; i <= n; i++) items.push({ id: `gpu${i}`, price: 100, feed: { q: 'test gpu', must: ['gpu'], min: 50, max: 300 } });
+  return fixture(t, items);
+}
+
+test('a failed eBay login stops eBay for the rest of the run and says why', async (t) => {
+  let grants = 0;
+  let searches = 0;
+  const { buildPrices } = multiFixture(t, async (url) => {
+    if (url.endsWith('/oauth2/token')) {
+      grants++;
+      return response({ error: 'invalid_client', error_description: 'client authentication failed' }, 401);
+    }
+    searches++;
+    return response(listing);
+  });
+  const result = await buildPrices();
+  assert.equal(grants, 1, 'one login attempt, not one per item');
+  assert.equal(searches, 0);
+  assert.match(result.providers.ebay, /^failed: .*401.*invalid_client/);
+  assert.equal(result.live, 0);
+});
+
+test('the first search error is reported, not only counted', async (t) => {
+  const { buildPrices } = multiFixture(t, async (url) => {
+    if (url.endsWith('/oauth2/token')) return response({ access_token: 'token', expires_in: 7200 });
+    return response({ errors: [{ message: 'Access denied' }] }, 403);
+  }, 2);
+  const result = await buildPrices();
+  assert.match(result.providers.ebay, /^on \(2 errors; first: HTTP 403.*Access denied/);
+});
+
+test('a run where every store lookup failed is a failure', async () => {
+  const { problem } = require('../fetch-prices.js');
+  assert.match(problem({ live: 0, providers: { bestbuy: 'off', ebay: 'failed: HTTP 401' } }), /no store prices/i);
+  assert.match(problem({ live: 0, providers: { bestbuy: 'off', ebay: 'on (93 errors; first: HTTP 401)' } }), /no store prices/i);
+  assert.equal(problem({ live: 4, providers: { bestbuy: 'off', ebay: 'on (2 errors; first: x)' } }), null);
+  assert.equal(problem({ live: 0, providers: { bestbuy: 'off', ebay: 'off' } }), null, 'no keys at all: a baseline feed is fine');
+});
+
+test('an unchanged feed is not rewritten unless it is getting old', () => {
+  const { shouldWrite } = require('../fetch-prices.js');
+  const day = 86400000;
+  const now = Date.parse('2026-10-31T00:00:00Z');
+  const prev = { generatedAt: '2026-10-30T00:00:00.000Z', count: 1, live: 1, prices: { gpu: { price: 150 } } };
+  const same = { ...prev, generatedAt: '2026-10-31T00:00:00.000Z' };
+  assert.equal(shouldWrite(prev, same, now), false);
+  assert.equal(shouldWrite({ ...prev, generatedAt: new Date(now - 4 * day).toISOString() }, same, now), true, 'refreshed before the game calls it stale');
+  assert.equal(shouldWrite(prev, { ...same, prices: { gpu: { price: 160 } } }, now), true);
+  assert.equal(shouldWrite(null, same, now), true);
+});
+
+test('a partial run gives a new item its baseline instead of dropping it', (t) => {
+  const { dir } = fixture(t, [component, { id: 'cpu', price: 50 }], { previous: { prices: { cpu: { price: 55, base: 50, src: 'ebay', n: 2 } } } });
+  const run = spawnSync(process.execPath, [path.join(dir, 'fetch-prices.js'), '--offline', '--only', 'cpu'], { encoding: 'utf8' });
+  assert.equal(run.status, 0, run.stderr);
+  const result = JSON.parse(fs.readFileSync(path.join(dir, 'prices.json'), 'utf8'));
+  assert.equal(result.prices.gpu && result.prices.gpu.src, 'baseline');
 });

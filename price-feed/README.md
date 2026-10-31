@@ -30,6 +30,8 @@ You need Node 18 or newer. There's nothing to `npm install`.
 
 Without keys, the script still writes a valid `prices.json` using the baseline prices, so the game always works.
 
+When keys are set but no store price comes back at all (refused keys, every search failing), the run **fails** and leaves `prices.json` as it was, printing the first error per store (for example `ebay failed: login failed: HTTP 401 ...`). A store whose keys are refused is skipped for the rest of the run instead of being retried for every item. `prices.json` is only rewritten when a price changed, or every 3 days so the game never sees it as stale.
+
 ## Run it on your PC
 
 ```bash

@@ -179,14 +179,21 @@ async function ebayAuth() {
   if (!id || !secret) return null;
   if (ebayToken && Date.now() < ebayTokenExpires - 60000) return ebayToken;
   const body = 'grant_type=client_credentials&scope=' + encodeURIComponent('https://api.ebay.com/oauth/api_scope');
-  const data = await httpJson('https://api.ebay.com/identity/v1/oauth2/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: 'Basic ' + Buffer.from(`${id}:${secret}`).toString('base64'),
-    },
-    body,
-  });
+  let data;
+  try {
+    data = await httpJson('https://api.ebay.com/identity/v1/oauth2/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: 'Basic ' + Buffer.from(`${id}:${secret}`).toString('base64'),
+      },
+      body,
+    });
+  } catch (e) {
+    e.auth = true; // the keys themselves were refused: no point trying the next item
+    e.message = `login failed: ${e.message}`;
+    throw e;
+  }
   ebayToken = data.access_token;
   ebayTokenExpires = Date.now() + (data.expires_in || 7200) * 1000;
   return ebayToken;
@@ -282,6 +289,15 @@ async function buildPrices(opts = {}) {
     ebay: process.env.EBAY_CLIENT_ID && process.env.EBAY_CLIENT_SECRET && !opts.offline ? 'on' : 'off',
   };
   const errors = { bestbuy: 0, ebay: 0 };
+  const firstError = { bestbuy: null, ebay: null }; // shown in the feed, so a broken store is visible
+  const failed = { bestbuy: null, ebay: null }; // a store whose keys were refused is skipped for the rest of the run
+  const noteError = (store, e) => {
+    errors[store]++;
+    if (!firstError[store]) firstError[store] = String(e.message).replace(/\s+/g, ' ').slice(0, 160);
+    const keysRefused = store === 'ebay' ? e.auth : (e.status === 401 || e.status === 403);
+    if (keysRefused) failed[store] = firstError[store];
+    log(`  ${store} error: ${e.message}`);
+  };
   const prices = {};
   // Retain untouched component prices before deriving bundles during a partial run.
   if (opts.only) {
@@ -300,23 +316,21 @@ async function buildPrices(opts = {}) {
     const estimates = [];
     const sources = [];
     let samples = 0;
-    if (providers.bestbuy === 'on') {
+    if (providers.bestbuy === 'on' && !failed.bestbuy) {
       try {
         const r = await bestBuyPrice(item, log);
         if (r) { estimates.push(r.price); sources.push('bestbuy'); samples += r.n; }
       } catch (e) {
-        errors.bestbuy++;
-        log(`  bestbuy error: ${e.message}`);
+        noteError('bestbuy', e);
       }
       await sleep(BESTBUY_DELAY_MS);
     }
-    if (providers.ebay === 'on') {
+    if (providers.ebay === 'on' && !failed.ebay) {
       try {
         const r = await ebayPrice(item, log);
         if (r) { estimates.push(r.price); sources.push('ebay'); samples += r.n; }
       } catch (e) {
-        errors.ebay++;
-        log(`  ebay error: ${e.message}`);
+        noteError('ebay', e);
       }
       await sleep(EBAY_DELAY_MS);
     }
@@ -336,8 +350,7 @@ async function buildPrices(opts = {}) {
 
   // 3) everything else: baseline, then bundles/prebuilts from their parts
   for (const item of items) {
-    if (item.builtin || prices[item.id]) continue;
-    if (opts.only && !opts.only.has(item.id) && !(item.bundle || item.parts)) continue;
+    if (item.builtin || prices[item.id]) continue; // (retained or live already)
     if (item.bundle || item.parts) continue; // second pass
     prices[item.id] = { price: item.price, base: item.price, src: 'baseline', n: 0 };
   }
@@ -374,8 +387,8 @@ async function buildPrices(opts = {}) {
     generatedAt: new Date().toISOString(),
     currency: hw.currency || 'USD',
     providers: {
-      bestbuy: providers.bestbuy === 'on' ? (errors.bestbuy ? `on (${errors.bestbuy} errors)` : 'on') : 'off',
-      ebay: providers.ebay === 'on' ? (errors.ebay ? `on (${errors.ebay} errors)` : 'on') : 'off',
+      bestbuy: providerStatus(providers.bestbuy, errors.bestbuy, firstError.bestbuy, failed.bestbuy),
+      ebay: providerStatus(providers.ebay, errors.ebay, firstError.ebay, failed.ebay),
     },
     count: Object.keys(prices).length,
     live,
@@ -383,14 +396,55 @@ async function buildPrices(opts = {}) {
   };
 }
 
+function providerStatus(state, n, first, failedWhy) {
+  if (state !== 'on') return 'off';
+  if (failedWhy) return `failed: ${failedWhy}`;
+  return n ? `on (${n} errors; first: ${first})` : 'on';
+}
+
+// A run that had store keys but got no store price at all is a failure, not a success: the feed would silently be
+// baseline prices (it was, for weeks, while every eBay lookup failed). Returns why, or null.
+function problem(result) {
+  const tried = Object.values(result.providers || {}).filter((s) => s !== 'off');
+  if (result.live > 0 || tried.length === 0) return null;
+  if (tried.some((s) => s.startsWith('failed') || /errors/.test(s))) {
+    return `no store prices: ${Object.entries(result.providers).map(([k, v]) => `${k} ${v}`).join(', ')}`;
+  }
+  return null;
+}
+
+// Only rewrite prices.json when something besides the timestamp changed, or when it's getting old (the game
+// ignores a feed older than 14 days, so an unchanged feed is still refreshed every few days).
+const REWRITE_DAYS = 3;
+function shouldWrite(previous, next, now = Date.now()) {
+  if (!previous || !previous.prices) return true;
+  const strip = (feed) => JSON.stringify({ ...feed, generatedAt: undefined });
+  if (strip(previous) !== strip(next)) return true;
+  const age = now - Date.parse(previous.generatedAt || 0);
+  return !(age < REWRITE_DAYS * 86400000);
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const started = Date.now();
+  const previous = readJson(args.out, null);
   const result = await buildPrices(args);
-  fs.writeFileSync(args.out, JSON.stringify(result, null, 2) + '\n');
   const secs = ((Date.now() - started) / 1000).toFixed(1);
-  console.log(`prices.json: ${result.count} items, ${result.live} live prices `
-    + `(bestbuy ${result.providers.bestbuy}, ebay ${result.providers.ebay}) in ${secs}s`);
+  const summary = `${result.count} items, ${result.live} live prices `
+    + `(bestbuy ${result.providers.bestbuy}, ebay ${result.providers.ebay}) in ${secs}s`;
+  const why = problem(result);
+  if (why) {
+    // keep the current prices.json (it may hold store prices) and fail, so the problem is seen
+    console.error(`prices.json NOT updated: ${why}`);
+    process.exitCode = 1;
+    return;
+  }
+  if (!shouldWrite(previous, result)) {
+    console.log(`prices.json unchanged: ${summary}`);
+    return;
+  }
+  fs.writeFileSync(args.out, JSON.stringify(result, null, 2) + '\n');
+  console.log(`prices.json: ${summary}`);
 }
 
 if (require.main === module) {
@@ -400,4 +454,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { buildPrices, titleMatches, normalize, streetPrice };
+module.exports = { buildPrices, titleMatches, normalize, streetPrice, problem, shouldWrite };

@@ -26,6 +26,7 @@ jobs:
       - name: Test price feed
         run: npm --prefix price-feed test
 
+      # fails (and commits nothing) when the stores' keys work for no item at all: see the error it prints
       - name: Fetch prices
         run: node price-feed/fetch-prices.js
         env:

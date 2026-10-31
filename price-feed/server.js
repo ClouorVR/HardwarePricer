@@ -17,7 +17,9 @@ const path = require('path');
 const { buildPrices } = require('./fetch-prices');
 
 const PORT = Number(process.env.PORT) || 8080;
-const REFRESH_HOURS = Number(process.env.REFRESH_HOURS) || 12;
+// a timer can't wait longer than ~24.8 days (2^31 ms): longer, negative or junk values made it fire nonstop
+const refreshRaw = Number(process.env.REFRESH_HOURS);
+const REFRESH_HOURS = Math.min(Math.max(Number.isFinite(refreshRaw) && refreshRaw > 0 ? refreshRaw : 12, 0.25), 595);
 const FILE = path.join(__dirname, 'prices.json');
 
 let body = null;
@@ -38,6 +40,14 @@ async function refresh() {
   refreshing = true;
   try {
     const result = await buildPrices({ out: FILE });
+    // a refresh with no store prices (no keys, or the stores failed) never replaces a feed that has them
+    let currentLive = 0;
+    try { currentLive = body ? JSON.parse(body).live || 0 : 0; } catch { currentLive = 0; }
+    if (!(result.live > 0) && currentLive > 0) {
+      console.log(`[prices] refresh found no store prices (bestbuy ${result.providers && result.providers.bestbuy}, `
+        + `ebay ${result.providers && result.providers.ebay}); keeping the current feed`);
+      return;
+    }
     await fs.promises.writeFile(FILE, JSON.stringify(result, null, 2) + '\n');
     body = JSON.stringify(result);
     lastRefresh = result.generatedAt;
